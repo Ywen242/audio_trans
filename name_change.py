@@ -53,3 +53,27 @@ for filename in os.listdir("E:/test_audio"):
 with open(os.path.join("E:/test_audio", 'file_names.txt'), 'w') as f:
         f.write(str(new_file_names))
 
+
+import subprocess
+
+def git_push(directory, commit_message="Automatic commit"):
+    try:
+        # 切换目录
+        os.chdir(directory)
+
+        # 添加所有更改
+        subprocess.run(["git", "add", "."], check=True)
+
+        # 提交更改
+        subprocess.run(["git", "commit", "-m", commit_message], check=True)
+
+        # 推送到远程仓库
+        subprocess.run(["git", "push", "origin", "master"], check=True)
+
+        print("Files have been pushed to the repository.")
+    except subprocess.CalledProcessError as e:
+        print(f"An error occurred: {e}")
+
+# 使用函数
+directory = "E:/test_audio"
+git_push(directory)

@@ -22,19 +22,10 @@ def rename_files(directory):
                 if re.match(r'\d{4}', part):
                     year = part
                 if part.lower() == 'q' and i + 1 < len(parts) and parts[i + 1].isdigit():
-                    quarter = f"q_{parts[i + 1]}"
+                    quarter = f"{parts[i + 1]}"
 
-            if company and year and quarter:
-                key = (company, quarter, year)
-                count = processed_files.get(key, 0)
-                new_name = f"{company}_{quarter}_{year}_{count}.mp3"
-                while os.path.exists(os.path.join(directory, new_name)):
-                    count += 1
-                    new_name = f"{company}_{quarter}_{year}_{count}.mp3"
-
-                processed_files[key] = count
-
-                os.rename(os.path.join(directory, filename), os.path.join(directory, new_name))
+            new_name = f"{company}_q_{quarter}_{year}.mp3"
+            os.rename(os.path.join(directory, filename), os.path.join(directory, new_name))
 
 
 # In[44]:

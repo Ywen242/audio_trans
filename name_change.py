@@ -31,14 +31,14 @@ def rename_files(directory):
 # In[44]:
 
 
-rename_files("E:/test_audio")
+rename_files("E:/test_audio/audio")
 
 
 # In[45]:
 
 
 new_file_names = []
-for filename in os.listdir("E:/test_audio"):
+for filename in os.listdir("E:/test_audio/audio"):
     if filename.endswith(".mp3"):
         new_file_names.append(filename[:-4])
 with open(os.path.join("E:/test_audio", 'file_names.txt'), 'w') as f:

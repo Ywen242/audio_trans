@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[3]:
+# In[43]:
 
 
 import os
@@ -13,7 +13,7 @@ def rename_files(directory):
 
     for filename in os.listdir(directory):
         if filename.endswith(".mp3"):
-            parts = filename.split('_')
+            parts = re.split(r'[_\.]', filename)
             company = parts[0]
             year = None
             quarter = None
@@ -22,7 +22,7 @@ def rename_files(directory):
                 if re.match(r'\d{4}', part):
                     year = part
                 if part.lower() == 'q' and i + 1 < len(parts) and parts[i + 1].isdigit():
-                    quarter = f"q{parts[i + 1]}"
+                    quarter = f"q_{parts[i + 1]}"
 
             if company and year and quarter:
                 key = (company, quarter, year)
@@ -37,13 +37,13 @@ def rename_files(directory):
                 os.rename(os.path.join(directory, filename), os.path.join(directory, new_name))
 
 
-# In[4]:
+# In[44]:
 
 
 rename_files("E:/test_audio")
 
 
-# In[8]:
+# In[45]:
 
 
 new_file_names = []
@@ -53,27 +53,3 @@ for filename in os.listdir("E:/test_audio"):
 with open(os.path.join("E:/test_audio", 'file_names.txt'), 'w') as f:
         f.write(str(new_file_names))
 
-
-import subprocess
-
-def git_push(directory, commit_message="Automatic commit"):
-    try:
-        # 切换目录
-        os.chdir(directory)
-
-        # 添加所有更改
-        subprocess.run(["git", "add", "."], check=True)
-
-        # 提交更改
-        subprocess.run(["git", "commit", "-m", commit_message], check=True)
-
-        # 推送到远程仓库
-        subprocess.run(["git", "push", "origin", "master"], check=True)
-
-        print("Files have been pushed to the repository.")
-    except subprocess.CalledProcessError as e:
-        print(f"An error occurred: {e}")
-
-# 使用函数
-directory = "E:/test_audio"
-git_push(directory)

@@ -15,6 +15,7 @@ upload.bat: A batch script for uploading files from the audio directory to a Git
 audio_clip.py: The main Python script used for clipping the audio files. It processes the original earnings call audio, identifies the relevant segments, and clips them accordingly.
 
 <Usage>
+
 To use this tool, follow these steps:
 1. Place the original earnings call audio files in the audio directory.
 2. Run the name_change.py script to standardize the file names.
